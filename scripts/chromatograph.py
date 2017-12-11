@@ -2,6 +2,7 @@
 from __future__ import division
 import matplotlib.pyplot as plt
 import numpy as np
+import csv
 
 # Chromatograph parameters
 pre_c = 10.0
@@ -13,6 +14,7 @@ final_c = 10.0
 final_d = 2.5
 flow_rate = 40.0
 max_c = 100.0
+data_format = '{:0.1f}'
 
 # Time
 dt = 0.01
@@ -24,7 +26,7 @@ time_e = time_d + final_d
 time_pre_ramp = np.arange(time_a, time_b, dt)
 time_ramp = np.arange(time_b, time_c, dt)
 time_post_ramp = np.arange(time_c, time_d, dt)
-time_final = np.arange(time_d, time_e, dt)
+time_final = np.arange(time_d, (time_e + dt), dt)
 time = np.append(time_pre_ramp, time_ramp)
 time = np.append(time, time_post_ramp)
 time = np.append(time, time_final)
@@ -143,3 +145,25 @@ ax2.grid()
 fig.tight_layout()
 plt.suptitle('HPLC Chromatograph Dec 11 2017')
 plt.show()
+
+# Save the data
+
+with open('../data/theory.csv', 'wb') as csvfile:
+    spamwriter = csv.writer(csvfile)
+    spamwriter.writerow(['time',
+                         'concentration a (%)',
+                         'concentration b (%)',
+                         'concentration total (%)',
+                         'volume a (ml)',
+                         'volume b (ml)',
+                         'volume total (ml)',
+    ])
+    for t in np.arange(0, time.size, int(1/dt)):
+        spamwriter.writerow([data_format.format(time[t]),
+                             data_format.format(concentration_a[t]),
+                             data_format.format(concentration_b[t]),
+                             data_format.format(concentration_t[t]),
+                             data_format.format(volume_a[t]),
+                             data_format.format(volume_b[t]),
+                             data_format.format(volume_t[t]),
+        ])
