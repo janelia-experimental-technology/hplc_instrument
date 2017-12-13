@@ -131,7 +131,7 @@ plt.show()
 
 # Save the data
 
-with open('../data/theory_digital.csv', 'wb') as csvfile:
+with open('../data/theory_approximation.csv', 'wb') as csvfile:
     spamwriter = csv.writer(csvfile)
     spamwriter.writerow(['time',
                          'concentration a (%)',
