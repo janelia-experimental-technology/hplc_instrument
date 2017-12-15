@@ -126,7 +126,7 @@ ax2.grid()
 
 # Show the plot
 fig.tight_layout()
-plt.suptitle('HPLC Chromatograph Dec 11 2017')
+plt.suptitle('HPLC Chromatograph Approximation')
 plt.show()
 
 # Save the data

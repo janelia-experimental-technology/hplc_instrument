@@ -1,5 +1,5 @@
 # Import the necessary packages and modules
-from __future__ import division
+from __future__ import division, print_function
 import matplotlib.pyplot as plt
 import numpy as np
 import csv
@@ -26,7 +26,7 @@ time_e = time_d + final_d
 time_pre_ramp = np.arange(time_a, time_b, dt)
 time_ramp = np.arange(time_b, time_c, dt)
 time_post_ramp = np.arange(time_c, time_d, dt)
-time_final = np.arange(time_d, (time_e + dt), dt)
+time_final = np.arange(time_d, time_e + dt, dt)
 time = np.append(time_pre_ramp, time_ramp)
 time = np.append(time, time_post_ramp)
 time = np.append(time, time_final)
@@ -87,7 +87,7 @@ ax1.grid()
 
 # Volume
 def find_volume(t, t0, m, b, c):
-    return m*((t - t0)**2)/2.0 + b*(t - t0) + c
+    return m*(t**2 - t0**2)/2.0 + b*(t - t0) + c
 
 volume_a_pre_ramp = find_volume(time_pre_ramp, time_a, 0, flow_rate*pre_c/max_c, 0)
 volume_a_ramp = find_volume(time_ramp, time_b, flow_rate*ramp_slope/max_c, flow_rate*(pre_c - pre_d*ramp_slope)/max_c, volume_a_pre_ramp[-1])
@@ -143,7 +143,7 @@ ax2.grid()
 
 # Show the plot
 fig.tight_layout()
-plt.suptitle('HPLC Chromatograph Dec 11 2017')
+plt.suptitle('HPLC Chromatograph')
 plt.show()
 
 # Save the data
